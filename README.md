@@ -25,8 +25,8 @@ LT_Commander *commander = lt_create_commander();
 You can add commands to each particular `LT_Commander` object with the `lt_add_commands` function. First create an array of `LT_command`s like this:
 ```c
 LT_Command commands[] = {
-  {"Command Name", "Command Description" "Extra Command Description", STATE_FLAGS, callback_function, NULL},
-  {"Command Name2", "Command Description2" "Extra Command Description2", STATE_FLAGS, callback_function2, NULL},
+  {"Command Name", "Command Description" "Extra Command Description", LT_UNIV, callback_function, NULL},
+  {"Command Name2", "Command Description2" "Extra Command Description2", LT_UNIV, callback_function2, NULL},
   {0}
 }
 
@@ -34,8 +34,16 @@ lt_add_commands(commander, commands);
 ```
 
 Each commander has 2 default commands: exit, which will call `exit(0)`, and help, which will print all shown commands (see the state flags section for more).
-These default 
-See below for more information on the `STATE_FLAGS` and the callback functions.
+The default commands can be removed with `
+```c
+lt_remove_command(LT_Commander *commander, char *command)
+```
+, or the callback can be changed by using `lt_get_command(LT_Commander *commander, char *command);` like this:
+```c
+lt_get_command(commander, "exit")->callback = different_function;
+```
+
+See below for more information on the `STATE_FLAGS` (such as `LT_UNIV`) and the callback functions.
 
 #### Executing commands
 
