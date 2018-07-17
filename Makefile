@@ -1,8 +1,8 @@
 CC=gcc
-LDFLAGS=-lreadline -g
+LDFLAGS=-lreadline
 
-OUTPUT=test
-CFILE=test.c
+OUTPUT=example
+CFILE=example.c
 
 default: $(OUTPUT)
 

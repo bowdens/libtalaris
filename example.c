@@ -151,9 +151,6 @@ int main(void) {
     char *matches[] = {"echo", "cat", "quiet", "help", "exit", "math", "args", NULL};
 
     lt_add_commands(com, commands);
-    //lt_add_command(com, "echo", "Echos whatever you write", "Usage: echo [WORD]...", echo);
-    //lt_add_command(com, "cat", "Prints the contents of one or more file(s)", "Usage: print [FILE]...", cat);
-    //lt_add_command(com, "math", "Enters mathematics mode", "Usage: math", math);
 
     lt_get_command(com, "exit")->callback = mainexit;
 
