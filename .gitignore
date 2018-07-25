@@ -1,4 +1,6 @@
-*.a
-*.o
-test*
+*
 !*.c
+!*.h
+!*.md
+!LICENSE
+!Makefile

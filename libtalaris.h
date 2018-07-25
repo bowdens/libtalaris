@@ -59,9 +59,9 @@ typedef enum lt_verbosity {
     lt_verbose
 } lt_verbosity;
 
-typedef struct lt_commander LT_Commander;
+typedef struct lt_parser LT_Parser;
 
-typedef int(*lt_callback)(int, char**, LT_Commander*);
+typedef int(*lt_callback)(int, char**, LT_Parser*);
 
 typedef struct lt_command {
     char *key;
@@ -72,23 +72,23 @@ typedef struct lt_command {
     UT_hash_handle hh;
 } LT_Command;
 
-typedef struct lt_commander {
+typedef struct lt_parser {
     LT_Command *commands;
     lt_verbosity verbosity;
     lt_callback unfound;
     int argc;
     char **argv;
     char *prompt;
-} LT_Commander;
+} LT_Parser;
 
-LT_Commander *lt_create_commander(void);
-int lt_add_commands(LT_Commander*, LT_Command*);
-int lt_add_command(LT_Commander*, char*, char*, char*, lt_callback callback);
-int lt_remove_command(LT_Commander*, char*);
-LT_Command* lt_get_command(LT_Commander*, char*);
-int lt_call(LT_Commander*, char*);
-int lt_input(LT_Commander*, char **matching_commands);
-int lt_cleanup(LT_Commander*);
-void lt_print_commander(LT_Commander*);
+LT_Parser *lt_create_parser(void);
+int lt_add_commands(LT_Parser*, LT_Command*);
+int lt_add_command(LT_Parser*, char*, char*, char*, lt_callback);
+int lt_remove_command(LT_Parser*, char*);
+LT_Command* lt_get_command(LT_Parser*, char*);
+int lt_call(LT_Parser*, char*);
+int lt_input(LT_Parser*, char **);
+int lt_cleanup(LT_Parser*);
+void lt_print_parser(LT_Parser*);
 
 #endif
