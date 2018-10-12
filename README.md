@@ -15,14 +15,14 @@ Note: Since this library uses `readline.h`, you will need to include the -lreadl
 
 Make sure to add the line `#include "libtaralis.h" in your .c file after copying libtalaris.a into your folder. Also don't forget to use the -lreadline flag when compiling in gcc.
 
-#### Commanders
-Each program needs to have at least one `LT_commander` object. Create this with the line 
+#### Parsers
+Each program needs to have at least one `LT_parser` object. Create this with the line 
 ```c
-LT_Commander *commander = lt_create_commander();
+LT_Parser *parser = lt_create_parser();
 ```
 
 #### Adding commands
-You can add commands to each particular `LT_Commander` object with the `lt_add_commands` function. First create an array of `LT_command`s like this:
+You can add commands to each particular `LT_Parser` object with the `lt_add_commands` function. First create an array of `LT_command`s like this:
 ```c
 LT_Command commands[] = {
   {"Command Name", "Command Description" "Extra Command Description", LT_UNIV, callback_function, NULL},
@@ -30,48 +30,48 @@ LT_Command commands[] = {
   {0}
 }
 
-lt_add_commands(commander, commands);
+lt_add_commands(parser, commands);
 ```
 
-Each commander has 2 default commands: exit, which will call `exit(0)`, and help, which will print all shown commands (see the state flags section for more).
+Each parser has 2 default commands: exit, which will call `exit(0)`, and help, which will print all shown commands (see the state flags section for more).
 The default commands can be removed with `
 ```c
-lt_remove_command(LT_Commander *commander, char *command)
+lt_remove_command(LT_Parser *parser, char *command)
 ```
-, or the callback can be changed by using `lt_get_command(LT_Commander *commander, char *command);` like this:
+, or the callback can be changed by using `lt_get_command(LT_Parser *parser, char *command);` like this:
 ```c
-lt_get_command(commander, "exit")->callback = different_function;
+lt_get_command(parser, "exit")->callback = different_function;
 ```
 
 See below for more information on the `STATE_FLAGS` (such as `LT_UNIV`) and the callback functions.
 
 #### Executing commands
 
-Executing commands is easy. After adding commands, simply call `lt_input(LT_Commander *commander, char *matches)`. 
+Executing commands is easy. After adding commands, simply call `lt_input(LT_Parser *parser, char *matches)`. 
 Libtalaris will accept input from `stdin` and execute the appropriate command based on what the user entered.
 
 For example, to continuously accept user input, this code fragment can be used:
 ```c
 while(lt_input(commnader, NULL) != LT_CALL_FAILED);
 ```
-If an unkown command was entered, libtalaris will execute whatever callback function is given at `commander->unfound`. By default this prints a message advising the user to type help, but it can be changed by changing the function pointer assoicated with commander->unfound.
+If an unkown command was entered, libtalaris will execute whatever callback function is given at `parser->unfound`. By default this prints a message advising the user to type help, but it can be changed by changing the function pointer assoicated with parser->unfound.
 
-`lt_input` will return `LT_CALL_FAILED` if the `LT_Commander` is `NULL`, or if the end of input was reached (ie `Control-D` was pressed)
+`lt_input` will return `LT_CALL_FAILED` if the `LT_Parser` is `NULL`, or if the end of input was reached (ie `Control-D` was pressed)
 It will also return `LT_COMMAND_UNFOUND` if there was no command associated with what the user entered.
 `lt_input` will otherwise return whatever the callback function returns otherwise. So it is a good idea to avoid returning `LT_COMMAND_UNFOUND` and `LT_CALL_FAILED` (#defined to -99 and -98) in your callbacks.
 
-You can also you `lt_call(LT_Commander, string)` to execute a command in the same way as if the user typed in the string.
+You can also you `lt_call(LT_Parser, string)` to execute a command in the same way as if the user typed in the string.
 
 #### Callbacks
 Each command should have a callback function associated with it (if it is set to `NULL`, nothing will be executed when the user enters that command.
 
 Callbacks must have the following prototype:
 ```c
-int callback(int argc, char **argv, LT_Commander *commander);
+int callback(int argc, char **argv, LT_Parser *parser);
 ```
 
 When the command is executed by `lt_input` or `lt_call`, it will pass the number of arguments in argc, and the arguments themselves in argv in the exact same was as it works in `main(int argc, char **argv);`.
-A pointer to the commander that executed the callback is also passed in, for flexibility if you are using multiple commanders and need to change the functionality of the callback depending on which commander called it.
+A pointer to the parser that executed the callback is also passed in, for flexibility if you are using multiple parsers and need to change the functionality of the callback depending on which parser called it.
 
 Whatever is returned by the callback will be returned by `lt_call` or `lt_input`. This can be used for error catching. You should avoid returning -98 and -99 because that is what `LT_COMMAND_UNFOUND` and `LT_CALL_FAILED` is #defined to
 
@@ -93,4 +93,4 @@ For instance, if you wanted a command that would show extended help and can be e
 
 
 
-This is a revamped version of [input-handles](https://www.github.com/bowdens/input-handler), created by @bowdens
+This is a revamped version of [input-handler](https://www.github.com/bowdens/input-handler), created by @bowdens

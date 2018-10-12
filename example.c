@@ -142,9 +142,9 @@ int main(void) {
         {"cat", "Prints the contents of whichever file(s) you specify", "Usage: cat [FILE]...", LT_UNIV, cat, NULL},
         {"math", "Enters mathematics mode", "Usage: math", LT_UNIV, math, NULL},
         {"args", "Prints out each argument", "Usage: args [WORD]...", LT_UNIV, arguments, NULL},
-        {"quiet", "This is a quiet command. You can't see it in help, but you can if you do help quiet, and you can run it", "Usage: quiet", LT_EXEC | LT_SPEC, quiet, NULL},
-        {"secret", "This is a secret command. It should not show up in help, but you can run it", "Usage: secret", LT_EXEC, secret, NULL},
-        {"silent", "This is a silent command. It should not show up in help, and you can not run it", "Usage: silent", LT_HIDE, silent, NULL},
+        {"quiet", "This is a quiet command. You can't see it in help, but you can if you run `help quiet`, and you can run it", "Usage: quiet", LT_EXEC | LT_SPEC, quiet, NULL},
+        {"secret", "This is a secret command. It does not show up in help, but you can run it", "Usage: secret", LT_EXEC, secret, NULL},
+        {"silent", "This is a silent command. It does not show up in help, and you can not run it", "Usage: silent", LT_HIDE, silent, NULL},
         {0}
     };
 
