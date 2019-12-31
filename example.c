@@ -88,7 +88,7 @@ int math(int argc, char **argv, LT_Parser *caller) {
     char prompt[128];
     int total = 0;
     int val = 0;
-    snprintf(prompt, 128, "%d\n$ ", total);
+    snprintf(prompt, 128, "%d\n# ", total);
     mathparser->prompt = prompt;
     while((val = lt_input(mathparser, matches)) != LT_CALL_FAILED) {
         if(val == INT32_MAX || mathparser->argc == 0 || val == LT_COMMAND_NOT_FOUND) continue;
@@ -113,9 +113,9 @@ int math(int argc, char **argv, LT_Parser *caller) {
         }
 
         if(operation == '?') {
-            snprintf(prompt, 128, "%d\n$ ", total);
+            snprintf(prompt, 128, "%d\n# ", total);
         } else {
-            snprintf(prompt, 128, "%d %c %d = %d\n$ ", old_total, operation, val, total);
+            snprintf(prompt, 128, "%d %c %d = %d\n# ", old_total, operation, val, total);
         }
         mathparser->prompt = prompt;
     }

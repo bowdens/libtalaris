@@ -7,7 +7,7 @@ Libtalaris is a C library that makes adding interactive command line interfaces 
 Clone this repository using `git clone https://www.github.com/bowdens/libtalaris`
 Run `make` to compile the example, then `./example` to test it out.
 
-You can also run `make libtalaris.a` to create the .a file, which you can copy across to your project to easily use the library for your project; just remeber to add the include at the top of your .c file(s) `#include "libtalaris.h"`.
+You can also run `make libtalaris.a` to create the .a file, which you can copy across to your project to easily use the library for your project; just remember to add the include at the top of your .c file(s) `#include "libtalaris.h"`.
 
 Note: Since this library uses `readline.h`, you will need to include the -lreadline flag when compiling your project if you use libtaralis.
 
@@ -52,9 +52,9 @@ Libtalaris will accept input from `stdin` and execute the appropriate command ba
 
 For example, to continuously accept user input, this code fragment can be used:
 ```c
-while(lt_input(commnader, NULL) != LT_CALL_FAILED);
+while(lt_input(commander, NULL) != LT_CALL_FAILED);
 ```
-If an unkown command was entered, libtalaris will execute whatever callback function is given at `parser->unfound`. By default this prints a message advising the user to type help, but it can be changed by changing the function pointer assoicated with parser->unfound.
+If an unknown command was entered, libtalaris will execute whatever callback function is given at `parser->unfound`. By default this prints a message advising the user to type help, but it can be changed by changing the function pointer associated with parser->unfound.
 
 `lt_input` will return `LT_CALL_FAILED` if the `LT_Parser` is `NULL`, or if the end of input was reached (ie `Control-D` was pressed)
 It will also return `LT_COMMAND_UNFOUND` if there was no command associated with what the user entered.
@@ -81,7 +81,7 @@ Examples of callback functions are provided in the example.c file
 There are three bits in the help flag. It determines what the default help function will show, and whether `lt_call` will execute the command when entered.
 The left most bit determines whether the default help function will show the command in the list, ie when then user types `help`.
 The next bit determines whether the default help function will show the extended help when the user types `help command`. If this is set to zero, `help command` will print "command not found"
-The final bit determines whether `lt_call` will execute the command when it is entered by the user. If a command which has this bit set to zero is entered, it will act as if the command was unkown.
+The final bit determines whether `lt_call` will execute the command when it is entered by the user. If a command which has this bit set to zero is entered, it will act as if the command was unknown.
 
 For most commands you'll probably want all bits set, so it will show help and extended help, and allow for execution. For this reason, this is #defined as `LT_UNIV`, with all three bits set.
 To access each bit, you can use `LT_HELP`, `LT_SPEC`, and `LT_EXEC` for help, extended help, and execution respectively. You can also use `LT_HIDE` for a state flag with all bits set to zero
