@@ -145,6 +145,7 @@ int main(void) {
         {"quiet", "This is a quiet command. You can't see it in help, but you can if you run `help quiet`, and you can run it", "Usage: quiet", LT_EXEC | LT_SPEC, quiet, NULL},
         {"secret", "This is a secret command. It does not show up in help, but you can run it", "Usage: secret", LT_EXEC, secret, NULL},
         {"silent", "This is a silent command. It does not show up in help, and you can not run it", "Usage: silent", LT_HIDE, silent, NULL},
+        {"?", "A link to help", "Usage: ? [COMMAND]...", LT_EXEC | LT_SPEC, lt_help, NULL},
         {0}
     };
 

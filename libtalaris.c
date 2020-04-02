@@ -62,7 +62,7 @@ LT_Parser *lt_create_parser(void) {
 
     parser->unfound = lt_unfound;
 
-    lt_add_command(parser, "help", "Shows this help", "Usage: help [command]", lt_help);
+    lt_add_command(parser, "help", "Shows this help", "Usage: help [COMMAND]...", lt_help);
     lt_add_command(parser, "exit", "Exits the program", "Usage: exit", lt_exit);
 
     return parser;

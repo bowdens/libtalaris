@@ -90,5 +90,6 @@ int lt_call(LT_Parser*, char*);
 int lt_input(LT_Parser*, char **);
 int lt_cleanup(LT_Parser*);
 void lt_print_parser(LT_Parser*);
+int lt_help(int, char**, LT_Parser*);
 
 #endif
