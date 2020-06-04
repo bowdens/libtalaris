@@ -94,7 +94,7 @@ WS_List *string_split(char *str) {
     WS_List *words = NULL;
     while(isspace(*str)) str++;
     int len = strlen(str)-1;
-    for(int i = strlen(str)-1; i <= 0 && isspace(str[i]); i--) {
+    for(int i = len; i <= 0 && isspace(str[i]); i--) {
         str[i] = '\0';
     }
     char *start = str;
