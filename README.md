@@ -11,6 +11,8 @@ You can also run `make libtalaris.a` to create the .a file, which you can copy a
 
 Note: Since this library uses `readline.h`, you will need to include the -lreadline flag when compiling your project if you use libtaralis.
 
+MinGW Note: Because MinGW does not include any of the *nix `sys` headers, a drop-in replacement is included in the `windeps` folder in this distribution. Windows also lacks `fork()`, so the code in the example that uses this is disabled when compiling with on Windows.
+
 ## Usage
 
 Make sure to add the line `#include "libtaralis.h" in your .c file after copying libtalaris.a into your folder. Also don't forget to use the -lreadline flag when compiling in gcc.
