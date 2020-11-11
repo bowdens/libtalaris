@@ -138,6 +138,7 @@ int arguments(int argc, char **argv, LT_Parser *parser) {
     }
 }
 
+#ifndef WINNT
 int exec(int argc, char **argv, LT_Parser *parser) {
     if (argc < 2) {
         printf("You must specify a binary\n");
@@ -154,6 +155,7 @@ int exec(int argc, char **argv, LT_Parser *parser) {
     wait(NULL);
     return 0;
 }
+#endif
 
 int main(void) {
     LT_Parser *parser = lt_create_parser();
@@ -166,11 +168,24 @@ int main(void) {
         {"secret", "This is a secret command. It does not show up in help, but you can run it", "Usage: secret", LT_EXEC, secret, NULL},
         {"silent", "This is a silent command. It does not show up in help, and you can not run it", "Usage: silent", LT_HIDE, silent, NULL},
         {"?", "A link to help", "Usage: ? [COMMAND]...", LT_EXEC | LT_SPEC, lt_help, NULL},
+#ifndef WINNT        
         {"exec", "execute a binary", "Usage: exec [BINARY]", LT_UNIV, exec, NULL},
+#endif
         {0}
     };
 
-    char *matches[] = {"echo", "cat", "quiet", "help", "exit", "math", "args", "exec", NULL};
+
+    char *matches[] = {"echo", 
+                        "cat", 
+                        "quiet", 
+                        "help", 
+                        "exit", 
+                        "math", 
+                        "args", 
+#ifndef WINNT        
+                        "exec", 
+#endif                        
+                        NULL};
 
     lt_add_commands(parser, commands);
 

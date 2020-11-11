@@ -1,5 +1,11 @@
 CC=gcc
 LDFLAGS=-lreadline
+CFLAGS :=
+SYSH :=
+
+ifeq ($(OS),Windows_NT)
+	CFLAGS	:= $(CFLAGS) -I./windeps -DWINNT=1
+endif
 
 OUTPUT=example
 CFILE=example.c
@@ -17,4 +23,4 @@ $(OUTPUT): $(CFILE) libtalaris.a
 	gcc $(CFLAGS) $^  -o $(OUTPUT) $(LDFLAGS)
 
 clean:
-	trash *.o *.a
+	rm *.o *.a *.exe
